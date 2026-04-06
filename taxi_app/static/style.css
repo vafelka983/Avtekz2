@@ -1,0 +1,246 @@
+:root {
+    --rose-pink: #ff69b4;
+    --light-pink: #ffb6c1;
+    --dark-pink: #db7093;
+    --soft-pink: #ffe4e1;
+    --white: #ffffff;
+    --shadow: 0 4px 6px rgba(219, 112, 147, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ffe4e1 0%, #ffb6c1 100%);
+    min-height: 100vh;
+    color: #4a2c3a;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Навигация */
+.navbar {
+    background: var(--white);
+    box-shadow: var(--shadow);
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+    border-radius: 0 0 20px 20px;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--rose-pink);
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--dark-pink);
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--rose-pink);
+}
+
+.user-info {
+    background: var(--soft-pink);
+    padding: 5px 15px;
+    border-radius: 20px;
+    color: var(--dark-pink);
+}
+
+/* Карточки */
+.card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(219, 112, 147, 0.15);
+}
+
+.card-title {
+    color: var(--rose-pink);
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+/* Формы */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--dark-pink);
+    font-weight: 500;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--light-pink);
+    border-radius: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--rose-pink);
+}
+
+/* Кнопки */
+.btn {
+    background: var(--rose-pink);
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn:hover {
+    background: var(--dark-pink);
+    transform: scale(1.05);
+}
+
+.btn-secondary {
+    background: var(--light-pink);
+    color: var(--dark-pink);
+}
+
+.btn-secondary:hover {
+    background: var(--rose-pink);
+    color: white;
+}
+
+/* Таблицы */
+.car-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.car-table th,
+.car-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--light-pink);
+}
+
+.car-table th {
+    background: var(--soft-pink);
+    color: var(--rose-pink);
+}
+
+.car-table tr:hover {
+    background: var(--soft-pink);
+}
+
+/* Уведомления */
+.alert {
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.alert-info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+/* Информация о заказе */
+.order-info {
+    background: linear-gradient(135deg, var(--soft-pink) 0%, var(--light-pink) 100%);
+    border-radius: 15px;
+    padding: 25px;
+    margin-top: 20px;
+}
+
+.order-info-item {
+    margin: 15px 0;
+    font-size: 1.1rem;
+}
+
+.order-info-label {
+    font-weight: bold;
+    color: var(--rose-pink);
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .navbar .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .card {
+        padding: 20px;
+    }
+    
+    .car-table {
+        font-size: 14px;
+    }
+}

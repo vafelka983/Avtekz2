@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card" style="text-align: center;">
+    <h1 class="card-title">🎉 Такси успешно вызвано!</h1>
+    
+    <div class="order-info">
+        <div class="order-info-item">
+            <span class="order-info-label">👨‍✈️ ФИО таксиста:</span> {{ order.driver }}
+        </div>
+        <div class="order-info-item">
+            <span class="order-info-label">🚗 Номер автомобиля:</span> {{ order.car_plate }}
+        </div>
+        <div class="order-info-item">
+            <span class="order-info-label">🏎️ Модель:</span> {{ order.model }}
+        </div>
+        <div class="order-info-item">
+            <span class="order-info-label">📍 Адрес назначения:</span> {{ order.destination }}
+        </div>
+        <div class="order-info-item">
+            <span class="order-info-label">⏱️ Время прибытия:</span> 
+            <span style="font-size: 1.5rem; color: var(--rose-pink);">{{ order.arrival_time }} минут</span>
+        </div>
+    </div>
+    
+    <div style="margin-top: 30px;">
+        <a href="{{ url_for('order') }}" class="btn">Проверить статус ❤️</a>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">На главную</a>
+    </div>
+</div>
+{% endblock %}

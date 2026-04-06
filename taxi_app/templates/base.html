@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Розовое Такси ❤️</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="{{ url_for('index') }}" class="logo">🚕 Розовое Такси</a>
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}">Главная</a>
+                {% if session.user_phone %}
+                    <span class="user-info">❤️ {{ session.user_name }}</span>
+                    <a href="{{ url_for('order') }}">Мой заказ</a>
+                    <a href="{{ url_for('logout') }}">Выйти</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}">Войти</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="container fade-in">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
