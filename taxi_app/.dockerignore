@@ -1,17 +1,17 @@
-__pycache__
-*.pyc
-*.pyo
-*.pyd
-.Python
-*.so
-*.egg
-*.egg-info
-dist
-build
-venv
-.env
-.git
-.gitignore
-README.md
-data/
-*.db
+__pycache__  # Папки с скомпилированным байт-кодом Python
+*.pyc  # Скомпилированные файлы Python
+*.pyo  # Оптимизированные скомпилированные файлы
+*.pyd  # Python DLL файлы (Windows)
+.Python  # Виртуальное окружение Python
+*.so  # Shared объекты (C/C++ библиотеки)
+*.egg  # Python egg пакеты
+*.egg-info  # Метаданные egg пакета
+dist  # Папка со сборками для дистрибуции
+build  # Временные файлы сборки
+venv  # Виртуальное окружение Python
+.env  # Файл с переменными окружения (секреты!)
+.git  # Вся история Git (может быть огромной!)
+.gitignore  # Файл игнорирования Git
+README.md  # Документация (не нужна в рантайме)
+data/  # Папка с данными (может быть большой)   
+*.db  # Файлы баз данных (SQLite и др.)
