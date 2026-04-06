@@ -2,12 +2,12 @@
 
 {% block content %}
 <div class="card">
-    <h1 class="card-title">🌸 Заказ такси</h1>
-    <p>Привет, {{ user_name }}! ❤️</p>
+    <h1 class="card-title">Заказ такси</h1>
+    <p>Привет, {{ user_name }}!</p>
     
     {% if active_order %}
     <div class="order-info">
-        <h3>✨ Ваш активный заказ</h3>
+        <h3>Ваш активный заказ</h3>
         <div class="order-info-item">
             <span class="order-info-label">Водитель:</span> {{ active_order.driver }}
         </div>
@@ -24,17 +24,17 @@
             <span class="order-info-label">Время прибытия:</span> {{ active_order.arrival_time }} минут
         </div>
         <div class="order-info-item">
-            <span class="order-info-label">Статус:</span> 🚖 Такси едет к вам
+            <span class="order-info-label">Статус:</span>Такси едет к вам
         </div>
     </div>
     {% else %}
     <form method="POST">
         <div class="form-group">
-            <label>📍 Куда едем?</label>
+            <label>Куда едем?</label>
             <textarea name="destination" rows="3" placeholder="Введите адрес назначения" required></textarea>
         </div>
         <div style="text-align: center;">
-            <button type="submit" class="btn">Вызвать такси ❤️</button>
+            <button type="submit" class="btn">Вызвать такси</button>
         </div>
     </form>
     {% endif %}

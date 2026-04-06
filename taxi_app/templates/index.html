@@ -2,12 +2,12 @@
 
 {% block content %}
 <div class="card">
-    <h1 class="card-title">🌸 Добро пожаловать в Розовое Такси!</h1>
-    <p>Ваше любимое такси в розовых тонах ❤️</p>
+    <h1 class="card-title">Добро пожаловать в Розовое Такси!</h1>
+    <p>Ваше любимое такси в розовых тонах</p>
 </div>
 
 <div class="card">
-    <h2 class="card-title">🚗 Свободные машины</h2>
+    <h2 class="card-title">Свободные машины</h2>
     {% if free_cars %}
     <table class="car-table">
         <thead>
@@ -30,14 +30,14 @@
         </tbody>
     </table>
     {% else %}
-    <p>😔 К сожалению, сейчас нет свободных машин</p>
+    <p>К сожалению, сейчас нет свободных машин</p>
     {% endif %}
 </div>
 
 {% if not session.user_phone %}
 <div class="card" style="text-align: center;">
-    <h2 class="card-title">✨ Готовы заказать такси?</h2>
-    <a href="{{ url_for('login') }}" class="btn">Войти и заказать ❤️</a>
+    <h2 class="card-title">Готовы заказать такси?</h2>
+    <a href="{{ url_for('login') }}" class="btn">Войти и заказать</a>
 </div>
 {% endif %}
 {% endblock %}
