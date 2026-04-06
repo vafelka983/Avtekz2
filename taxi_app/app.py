@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import database
-import os
 
 app = Flask(__name__)
 app.secret_key = 'rose_taxi_secret_key_2024'
