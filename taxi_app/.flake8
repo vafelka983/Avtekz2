@@ -1,0 +1,4 @@
+[flake8]
+ignore = E501, E128
+exclude = .git, __pycache__, venv, tests
+max-line-length = 120
