@@ -81,6 +81,7 @@ def authenticate(phone, sms_code):
     conn.close()
     return result
 
+
 def create_order(passenger_phone, destination):
     """Создание заказа такси"""
     conn = sqlite3.connect('taxi.db')
@@ -121,6 +122,7 @@ def create_order(passenger_phone, destination):
         'arrival_time': arrival_time,
         'destination': destination
     }
+
 
 def get_active_order(phone):
     """Получение активного заказа по номеру телефона"""
