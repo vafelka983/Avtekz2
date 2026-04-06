@@ -1,11 +1,17 @@
 import sqlite3
-import random
+import os
+
+DATABASE_PATH = os.getenv('DATABASE_PATH', 'taxi.db')
+
+
+def get_db():
+    return sqlite3.connect(DATABASE_PATH)
+
 
 def init_db():
-    conn = sqlite3.connect('taxi.db')
+    conn = get_db()
     cur = conn.cursor()
-    
-    # Таблица машин
+
     cur.execute('''
         CREATE TABLE IF NOT EXISTS cars (
             car_id INTEGER PRIMARY KEY,
@@ -15,8 +21,7 @@ def init_db():
             on_line TEXT
         )
     ''')
-    
-    # Таблица пассажиров (для аутентификации)
+
     cur.execute('''
         CREATE TABLE IF NOT EXISTS passengers (
             id INTEGER PRIMARY KEY,
@@ -25,8 +30,7 @@ def init_db():
             sms_code TEXT
         )
     ''')
-    
-    # Таблица заказов
+
     cur.execute('''
         CREATE TABLE IF NOT EXISTS orders (
             order_id INTEGER PRIMARY KEY,
@@ -38,8 +42,7 @@ def init_db():
             arrival_time INTEGER
         )
     ''')
-    
-    # Вставляем тестовые данные
+
     cur.execute("SELECT COUNT(*) FROM cars")
     if cur.fetchone()[0] == 0:
         cars_data = [
@@ -50,7 +53,7 @@ def init_db():
             (5, 'Toyota Camry', 'Волков Игорь Дмитриевич', 'o888oo199', 'Да')
         ]
         cur.executemany('INSERT INTO cars VALUES (?, ?, ?, ?, ?)', cars_data)
-    
+
     cur.execute("SELECT COUNT(*) FROM passengers")
     if cur.fetchone()[0] == 0:
         passengers_data = [
@@ -59,22 +62,22 @@ def init_db():
             (3, 'Смирнова Екатерина Андреевна', '+79998887777', '555')
         ]
         cur.executemany('INSERT INTO passengers VALUES (?, ?, ?, ?)', passengers_data)
-    
+
     conn.commit()
     conn.close()
 
+
 def get_free_cars():
-    """Получение информации о свободных машинах"""
-    conn = sqlite3.connect('taxi.db')
+    conn = get_db()
     cur = conn.cursor()
     cur.execute("SELECT car_id, model, driver, plate FROM cars WHERE on_line = 'Да'")
-    free_cars = cur.fetchall()
+    result = cur.fetchall()
     conn.close()
-    return free_cars
+    return result
+
 
 def authenticate(phone, sms_code):
-    """Аутентификация по номеру телефона и СМС-коду"""
-    conn = sqlite3.connect('taxi.db')
+    conn = get_db()
     cur = conn.cursor()
     cur.execute("SELECT name, phone FROM passengers WHERE phone = ? AND sms_code = ?", (phone, sms_code))
     result = cur.fetchone()
@@ -83,37 +86,31 @@ def authenticate(phone, sms_code):
 
 
 def create_order(passenger_phone, destination):
-    """Создание заказа такси"""
-    conn = sqlite3.connect('taxi.db')
+    import random
+    conn = get_db()
     cur = conn.cursor()
-    
-    # Находим свободную машину
+
     cur.execute("SELECT plate, driver, model FROM cars WHERE on_line = 'Да' LIMIT 1")
     car = cur.fetchone()
-    
+
     if not car:
         conn.close()
         return None
-    
+
     car_plate, driver, model = car
-    
-    # Генерируем время прибытия (от 5 до 20 минут)
-    import random
     arrival_time = random.randint(5, 20)
-    
-    # Создаем заказ
+
     cur.execute('''
         INSERT INTO orders (passenger_phone, car_plate, driver, destination, status, arrival_time)
         VALUES (?, ?, ?, ?, ?, ?)
     ''', (passenger_phone, car_plate, driver, destination, 'active', arrival_time))
-    
-    # Помечаем машину как занятую
+
     cur.execute("UPDATE cars SET on_line = 'Нет' WHERE plate = ?", (car_plate,))
-    
+
     order_id = cur.lastrowid
     conn.commit()
     conn.close()
-    
+
     return {
         'order_id': order_id,
         'driver': driver,
@@ -125,8 +122,7 @@ def create_order(passenger_phone, destination):
 
 
 def get_active_order(phone):
-    """Получение активного заказа по номеру телефона"""
-    conn = sqlite3.connect('taxi.db')
+    conn = get_db()
     cur = conn.cursor()
     cur.execute('''
         SELECT o.order_id, o.driver, o.car_plate, c.model, o.destination, o.arrival_time, o.status
@@ -136,7 +132,7 @@ def get_active_order(phone):
     ''', (phone,))
     order = cur.fetchone()
     conn.close()
-    
+
     if order:
         return {
             'order_id': order[0],
